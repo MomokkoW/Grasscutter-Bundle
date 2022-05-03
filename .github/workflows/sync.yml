@@ -1,0 +1,21 @@
+name: Sync Upstream
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  update_external_airflow_fork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: TobKed/github-forks-sync-action@master
+        with:
+          github_token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          upstream_repository: Grasscutters/Grasscutter
+          target_repository: MomokkoW/Grasscutter-Bundle
+          upstream_branch: development
+          target_branch: upstream
+          force: true
+          tags: false
